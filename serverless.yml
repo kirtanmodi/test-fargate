@@ -139,6 +139,16 @@ resources:
           Ref: PrivateSubnet2
         RouteTableId:
           Ref: ECSDemoPrivateRouteTable
+          
+    PubRouteViaIGW:
+      Type: 'AWS::EC2::Route'
+      DependsOn: AttachGateway
+      Properties:
+        RouteTableId:
+          Ref: ECSDemoPublicRouteTable
+        DestinationCidrBlock: '0.0.0.0/0'
+        GatewayId:
+          Ref: InternetGateway
   
   Outputs:
     VpcId:
