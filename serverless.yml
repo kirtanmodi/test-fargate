@@ -107,6 +107,38 @@ resources:
         Tags:
           - Key: Name
             Value: pridemo
+            
+    PublicSubnet1Association:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        SubnetId:
+          Ref: PublicSubnet1
+        RouteTableId:
+          Ref: ECSDemoPublicRouteTable
+
+    PublicSubnet2Association:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        SubnetId:
+          Ref: PublicSubnet2
+        RouteTableId:
+          Ref: ECSDemoPublicRouteTable
+
+    PrivateSubnet1Association:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        SubnetId:
+          Ref: PrivateSubnet1
+        RouteTableId:
+          Ref: ECSDemoPrivateRouteTable
+
+    PrivateSubnet2Association:
+      Type: 'AWS::EC2::SubnetRouteTableAssociation'
+      Properties:
+        SubnetId:
+          Ref: PrivateSubnet2
+        RouteTableId:
+          Ref: ECSDemoPrivateRouteTable
   
   Outputs:
     VpcId:
