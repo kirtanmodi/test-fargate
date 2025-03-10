@@ -89,6 +89,24 @@ resources:
           Ref: ECSDemoVPC
         InternetGatewayId:
           Ref: InternetGateway
+          
+    ECSDemoPublicRouteTable:
+      Type: 'AWS::EC2::RouteTable'
+      Properties:
+        VpcId:
+          Ref: ECSDemoVPC
+        Tags:
+          - Key: Name
+            Value: pubdemo
+
+    ECSDemoPrivateRouteTable:
+      Type: 'AWS::EC2::RouteTable'
+      Properties:
+        VpcId:
+          Ref: ECSDemoVPC
+        Tags:
+          - Key: Name
+            Value: pridemo
   
   Outputs:
     VpcId:
