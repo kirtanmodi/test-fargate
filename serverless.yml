@@ -1,0 +1,62 @@
+service: ecs-demo
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1 # You can change this to your preferred region
+
+resources:
+  Resources:
+    ECSDemoVPC:
+      Type: 'AWS::EC2::VPC'
+      Properties:
+        CidrBlock: '10.0.0.0/16'
+        EnableDnsSupport: true
+        EnableDnsHostnames: true
+        Tags:
+          - Key: Name
+            Value: ECSDemo
+    
+    PublicSubnet1:
+      Type: 'AWS::EC2::Subnet'
+      Properties:
+        VpcId:
+          Ref: ECSDemoVPC
+        CidrBlock: '10.0.0.0/24'
+        MapPublicIpOnLaunch: true
+        AvailabilityZone:
+          Fn::Select:
+            - 0
+            - Fn::GetAZs: ''
+        Tags:
+          - Key: Name
+            Value: PublicSubnet1
+
+    PublicSubnet2:
+      Type: 'AWS::EC2::Subnet'
+      Properties:
+        VpcId:
+          Ref: ECSDemoVPC
+        CidrBlock: '10.0.1.0/24'
+        MapPublicIpOnLaunch: true
+        AvailabilityZone:
+          Fn::Select:
+            - 1
+            - Fn::GetAZs: ''
+        Tags:
+          - Key: Name
+            Value: PublicSubnet2
+  
+  Outputs:
+    VpcId:
+      Description: 'VPC Id'
+      Value:
+        Ref: ECSDemoVPC
+    PublicSubnet1Id:
+      Description: 'Public Subnet 1 Id'
+      Value:
+        Ref: PublicSubnet1
+    PublicSubnet2Id:
+      Description: 'Public Subnet 2 Id'
+      Value:
+        Ref: PublicSubnet2
