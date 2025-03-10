@@ -149,6 +149,56 @@ resources:
         DestinationCidrBlock: '0.0.0.0/0'
         GatewayId:
           Ref: InternetGateway
+          
+    PublicNetworkAcl:
+      Type: 'AWS::EC2::NetworkAcl'
+      Properties:
+        VpcId:
+          Ref: ECSDemoVPC
+        Tags:
+          - Key: Name
+            Value: PublicNetworkAcl
+
+    PrivateNetworkAcl:
+      Type: 'AWS::EC2::NetworkAcl'
+      Properties:
+        VpcId:
+          Ref: ECSDemoVPC
+        Tags:
+          - Key: Name
+            Value: PrivateNetworkAcl
+            
+    PublicSubnet1AclAssociation:
+      Type: AWS::EC2::SubnetNetworkAclAssociation
+      Properties:
+        SubnetId:
+          Ref: PublicSubnet1
+        NetworkAclId:
+          Ref: PublicNetworkAcl
+
+    PublicSubnet2AclAssociation:
+      Type: AWS::EC2::SubnetNetworkAclAssociation
+      Properties:
+        SubnetId:
+          Ref: PublicSubnet2
+        NetworkAclId:
+          Ref: PublicNetworkAcl
+
+    PrivateSubnet1AclAssociation:
+      Type: AWS::EC2::SubnetNetworkAclAssociation
+      Properties:
+        SubnetId:
+          Ref: PrivateSubnet1
+        NetworkAclId:
+          Ref: PrivateNetworkAcl
+
+    PrivateSubnet2AclAssociation:
+      Type: AWS::EC2::SubnetNetworkAclAssociation
+      Properties:
+        SubnetId:
+          Ref: PrivateSubnet2
+        NetworkAclId:
+          Ref: PrivateNetworkAcl
   
   Outputs:
     VpcId:
