@@ -3,7 +3,7 @@ service: ecs-demo
 provider:
   name: aws
   runtime: nodejs18.x
-  region: us-east-1 # You can change this to your preferred region
+  region: us-east-1
 
 resources:
   Resources:
